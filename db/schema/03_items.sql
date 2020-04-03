@@ -5,5 +5,6 @@ CREATE TABLE items (
   name VARCHAR(50) NOT NULL,
   description VARCHAR(255),
   price SMALLINT NOT NULL,
-  photo_url VARCHAR(255) NOT NULL
+  photo_url VARCHAR(255) NOT NULL,
+  active BOOLEAN DEFAULT true
 );
