@@ -1,35 +1,17 @@
 GET /
 homepage.ejs
 
-
-GET /menu
+GET /order
 menu.ejs
-
-POST /menu/add
-POST /menu/update
-POST /menu/delete
-
+--> POST /orders
 
 GET /contact
 contact.ejs
-
-
-GET /neworder
-neworder.ejs
-
-
-GET /checkout
-checkout.ejs
---> POST /orders
-
-
 
 GET /orders
 orders.ejs
 
 
-GET /orders/:id
-order.ejs
 
 POST /orders/:id/cancel
 
