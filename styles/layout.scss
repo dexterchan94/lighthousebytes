@@ -7,3 +7,15 @@ body {
     color: #244751;
   }
 }
+
+.navbar.navbar-dark {
+  background-color: #03a5fc;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
