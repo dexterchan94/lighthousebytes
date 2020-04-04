@@ -31,6 +31,8 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+const { getAllItems } = require("./db/helpers/01_items");
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
@@ -51,7 +53,10 @@ app.use("/orders", ordersRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  getAllItems(db)
+    .then((items) => {
+      res.render("index", { items });
+    });
 });
 
 app.listen(PORT, () => {
