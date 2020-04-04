@@ -28,5 +28,9 @@ User Stories
 - As a restaurant owner, I want to be able to send the expected pickup time to a customer via SMS
 - As a restaurant owner, I want to be able to send the customer a notification when an order is ready for pickup
 - As a restaurant owner, I want to be able to see customer info (location, phone number, etc)
-- As a restaurant owner, I want to be able to edit the menu
+- (Stretch) As a restaurant owner, I want to be able to edit the menu
 - 
+
+### wire-framing 
+https://www.figma.com/file/p6aO36f9hSOMgS5CBv36qa/lighthousebytes?node-id=0%3A1
+
