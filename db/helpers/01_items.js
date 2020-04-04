@@ -9,3 +9,7 @@ const getAllItems = (db) => {
             .json({ error: err.message });
         });
 };
+
+module.exports = {
+  getAllItems
+};
