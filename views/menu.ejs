@@ -1,24 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+<head>
+  <title>Home Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-  <body>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+  <style>
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      width: 70%;
 
-    <%- include("partials/navbar") %>
+    }
+
+    .card {
+      flex: 1 0 26%;
+      margin: 1em;
+      height: 40em;
+      width: 20em;
+    }
+
+    .container {
+      display: flex;
+      max-width: inherit;
+    }
+
+    .cart {
+      background-color: antiquewhite;
+      display: flex;
+      height: 60em;
+      margin: 1em;
+      width: 20em;
+      flex-direction: column;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 1em;
+    }
+
+    .cart-body {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .cart-body * {
+      display: flex;
+    }
+
+    .sticky {
+      position: fixed;
+      top: 0;
+      margin-top: 0;
+    }
+  </style>
+  <script>
+    $(() => {
+      window.onscroll = () => makeSideSticky();
+
+      const sideBar = $('#cart');
+      const sticky = sideBar[0].offsetTop;
+
+      const makeSideSticky = () => {
+        if (window.pageYOffset >= sticky) {
+          sideBar.addClass('sticky');
+        } else {
+          sideBar.removeClass('sticky');
+        }
+      };
+
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+  <%- include("partials/navbar") %>
 
 
-    <div class="container">
-      <h1>Place an order page!</h1>
-    </div>
+  <div class="jumbotron">
+    <h1 class="display-4">Place an Order!</h1>
+    <p class="lead">This jumbotron is just temporary.</p>
+    <hr class="my-4">
+    <h1>Menu</h1>
+  </div>
+
+
+  <div class="container">
+
+
+    <section class="items">
+      <% for (item of items) { %>
+
+      <article class="card" style="width: 18rem;">
+        <img src="<%= item.photo_url %>" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title"><%= item.name %></h5>
+          <p class="card-text"><%= item.description %></p>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </article>
+
+      <% } %>
+    </section>
+    <aside>
+      <div class="cart" id="cart">
+        <div class="cart-header">
+          <h3>Items</h3>
+          <h3>Qty</h3>
+          <h3>Price</h3>
+        </div>
+        <div class="cart-body">
+          <div class="item1">
+            <h4>French Toast</h4>
+            <h6>1</h6>
+            <h6>$8.50</h6>
+          </div>
+          <div class="item2">
+            <h4>Grilled Porkchop</h4>
+            <h6>2</h6>
+            <h6>$27.00</h6>
+          </div>
+          <div class="item3">
+            <h4>Pan-roasted Salmon</h4>
+            <h6>1</h6>
+            <h6>$12.50</h6>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+
+  </div>
 
 
   <%- include("partials/footer") %>
