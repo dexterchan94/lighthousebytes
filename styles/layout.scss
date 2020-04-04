@@ -1,4 +1,6 @@
 // See: https://sass-lang.com/
+$theme-color: #03a5fc;
+
 
 body {
   background-color: #EEE;
@@ -8,8 +10,23 @@ body {
   }
 }
 
+.jumbotron {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=1635&q=80');
+  background-size: cover;
+  color: white;
+  height: 500px;
+
+    h1 {
+      color:white;
+    }
+
+    hr {
+      color: white;
+    }
+}
+
 .navbar.navbar-dark {
-  background-color: #03a5fc;
+  background-color: $theme-color;
 }
 
 .navbar-dark .navbar-nav .nav-link {

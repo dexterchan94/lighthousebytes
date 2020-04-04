@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -16,12 +17,10 @@
     <%- include("partials/navbar") %>
 
 
-    <div class="jumbotron">
-      <h1 class="display-4">Home page!</h1>
-      <p class="lead">This jumbotron is just temporary.</p>
+    <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
+      <h1 class="display-4">Welcome to Lighthouse Bytes!</h1>
+      <p class="lead">We make okay food</p>
       <hr class="my-4">
-      <p>The menu will be below!</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Yay</a>
     </div>
 
 
@@ -36,8 +35,8 @@
             <div class="col-md-6">
               <div class="card-body">
                 <h5 class="card-title"><%= items[i].name %></h5>
-                <p class="card-text"><%= items[i].description %></p>
-                <p class="card-text"><small class="text-muted">$<%= items[i].price / 100 %></small></p>
+                <p class="card-text text-muted"><%= items[i].description %></p>
+                <p class="card-text">$<%= items[i].price / 100 %></p>
               </div>
             </div>
             <div class="col-md-6">
