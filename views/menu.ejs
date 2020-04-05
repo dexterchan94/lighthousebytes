@@ -48,13 +48,13 @@
         <img src="<%= item.photo_url %>" class="card-img-top" alt="">
         <div class="card-body">
           <h5 class="card-title"><%= item.name %></h5>
-          <input type="hidden" id="<%= item.id %>">
           <p class="card-text"><%= item.description %></p>
           <div class="card-footer">
             <div class="counterBox">
               <button class='down_count btn btn-info' title='Down'><i class='fas fa-minus'></i></button>
               <input class='counter' type="text" value='0' />
               <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
+              <input type="hidden" id='item<%= item.id %>'>
             </div>
             <a href="#" class="btn btn-primary">Add to Cart</a>
           </div>
