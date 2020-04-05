@@ -2,7 +2,8 @@ $(() => {
   window.onscroll = () => makeSideSticky();
 
   const sideBar = $('#cart');
-  const sticky = sideBar[0].offsetTop;
+  // height of current navBar = 62px + margin around 28px;
+  const sticky = sideBar[0].offsetTop - 90;
 
   const makeSideSticky = () => {
     if (window.pageYOffset >= sticky) {
