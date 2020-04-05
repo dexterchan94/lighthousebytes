@@ -45,13 +45,40 @@ const getOrderItems = (db, orderID, row) => {
     })
     .catch(err => {
       console.log(err);
-      // res
-      //   .status(500)
-      //   .json({ error: err.message });
     });
 };
 
+const acceptOrder = (db, orderID) => {
+  const queryString = `
+  UPDATE orders SET accepted_at = Now(), status = 'accepted'
+  WHERE id = $1
+  `;
+    return db.query(queryString, [orderID])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const completeOrder = (db, orderID) => {
+  const queryString = `
+  UPDATE orders SET completed_at = Now(), status = 'completed'
+  WHERE id = $1
+  `;
+    return db.query(queryString, [orderID])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  };
+
 module.exports = {
   getAllOrders,
-  getOrderItems
+  getOrderItems,
+  acceptOrder,
+  completeOrder
 };

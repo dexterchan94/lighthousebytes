@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getAllOrders } = require("../db/helpers/orders");
+const { getAllOrders, acceptOrder, completeOrder } = require("../db/helpers/orders");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -22,13 +22,25 @@ module.exports = (db) => {
   });
 
   router.post("/:id/accept", (req, res) => {
-    console.log(`Order ${req.params.id} accepted! Estimated time: ${req.body.preptime} minutes`);
-    res.redirect("/orders");
+    acceptOrder(db, req.params.id)
+      .then(() => {
+        console.log(`Order ${req.params.id} accepted! Estimated time: ${req.body.preptime} minutes`);
+        res.redirect("/orders");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   router.post("/:id/complete", (req, res) => {
-    console.log(`Order ${req.params.id} completed!`);
-    res.redirect("/orders");
+    completeOrder(db, req.params.id)
+      .then(() => {
+        console.log(`Order ${req.params.id} completed!`);
+        res.redirect("/orders");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
   return router;
 };
