@@ -1,0 +1,134 @@
+/*
+*   css for newOrder page
+*   Author : Junsung Park@github.com/zeipar
+*   Date   : 04/Apr/2020
+*/
+
+// top container
+.container {
+  display: flex;
+  max-width: inherit;
+}
+
+// Menu items
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+.card {
+  flex: 1 0 26%;
+  margin: 1em;
+  height: 40em;
+  width: 20em;
+  display: flex;
+
+}
+
+.card-body {
+  height: 50%;
+}
+.card-footer {
+  // margin-left:5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.counter {
+  width: 45px;
+  border-radius: 0px !important;
+  text-align: center;
+  padding: 4px 6px;
+  border: 1px solid #cccccc;
+}
+.up_count {
+  // margin-bottom: 10px;
+  margin-left: -4px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.down_count {
+  // margin-bottom: 10px;
+  margin-right: -4px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+// cart
+.cart {
+  background-color: whitesmoke;
+  display: flex;
+  min-height:30em;
+  margin: 1em;
+  width: 30em;
+  flex-direction: column;
+  border-radius: 15px;
+  justify-content: space-between;
+}
+.cart-header {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em;
+}
+.cart-header-wrapper {
+  padding: 20px;
+  display:flex;
+}
+.cart-promotion-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: rgb(45, 180, 112);
+  font-size: x-large;
+  color:white;
+}
+.cart-body {
+  display: flex;
+  flex-direction: column;
+}
+.cart-body-wrapper {
+  display: flex;
+  flex-grow: 4;
+  padding: 20px;
+  border-bottom:1px solid rgb(225, 229, 232)
+}
+.cart-body * {
+  display: flex;
+}
+.cart-footer {
+  max-width: 100%;
+  max-height: 60px;
+}
+.cart-checkout {
+  width: 100%;
+  font-size: 3em;
+  border-radius: 0 0 15px 15px;
+}
+.cart-total-wrapper {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 90px;
+  * {
+    padding: 20px;
+    display:flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: x-large;
+  }
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  margin-top: 92px;
+}
+
+// images max width/height
+
+img {
+  height: 25em;
+  // height: auto;
+  width: auto;
+
+
+}

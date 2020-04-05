@@ -1,24 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+<head>
+  <title>Home Page</title>
 
-  <body>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    type="text/css" />
 
-    <%- include("partials/navbar") %>
+  <!-- Internal CSS -->
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/newOrder/newOrder.css" type="text/css" />
 
 
-    <div class="container">
-      <h1>Place an order page!</h1>
-    </div>
+  <!-- External JS -->
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <!-- Internal JS -->
+  <script type="text/javascript" src="/scripts/newOrder.js"></script>
+
+
+</head>
+
+<body>
+
+  <%- include("partials/navbar") %>
+
+
+  <div class="jumbotron">
+    <h1 class="display-4">Place an Order!</h1>
+    <p class="lead">This jumbotron is just temporary.</p>
+    <hr class="my-4">
+    <h1>Menu</h1>
+  </div>
+
+
+  <div class="container">
+
+
+    <section class="items">
+      <% for (item of items) { %>
+
+      <article class="card" style="width: 18rem;">
+        <img src="<%= item.photo_url %>" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title"><%= item.name %></h5>
+          <input type="hidden" id="<%= item.id %>">
+          <p class="card-text"><%= item.description %></p>
+          <div class="card-footer">
+            <div class="counterBox">
+              <button class='down_count btn btn-info' title='Down'><i class='fas fa-minus'></i></button>
+              <input class='counter' type="text" value='0' />
+              <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
+            </div>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+          </div>
+        </div>
+      </article>
+
+      <% } %>
+    </section>
+    <aside>
+      <div class="cart" id="cart">
+        <!-- <div class="cart-header">
+          <h3>Items</h3>
+          <h3>Qty</h3>
+          <h3>Price</h3>
+        </div>
+        <div class="cart-body">
+          <div class="item1">
+            <h4>French Toast</h4>
+            <h6>1</h6>
+            <h6>$8.50</h6>
+          </div>
+          <div class="item2">
+            <h4>Grilled Porkchop</h4>
+            <h6>2</h6>
+            <h6>$27.00</h6>
+          </div>
+          <div class="item3">
+            <h4>Pan-roasted Salmon</h4>
+            <h6>1</h6>
+            <h6>$12.50</h6>
+          </div>
+        </div> -->
+        <div class="cart-header-wrapper">
+          <h3>Your order</h3>
+        </div>
+        <div class="cart-promotion-wrapper">
+          <div>Order now to save $7</div>
+        </div>
+        <div class="cart-body-wrapper">
+          <h3>Start adding items from the menu</h3>
+        </div>
+        <div class=cart-footer-wrapper">
+          <div class="cart-total-wrapper">
+            <div>Food & Beverages Subtotal</div>
+            <div class="total-price">$50.23</div>
+          </div>
+          <div class="cart-checkout-wrapper">
+            <button class="btn btn-info btn-lg cart-checkout" type="button" disabled>Checkout</button>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+
+  </div>
 
 
   <%- include("partials/footer") %>

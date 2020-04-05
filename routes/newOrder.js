@@ -8,21 +8,14 @@
 const express = require('express');
 const router  = express.Router();
 
+const { getAllItems } = require("../db/helpers/01_items");
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("menu");
-    // let query = `SELECT * FROM items`;
-    // console.log(query);
-    // db.query(query)
-    //   .then(data => {
-    //     const widgets = data.rows;
-    //     res.json({ widgets });
-    //   })
-    //   .catch(err => {
-    //     res
-    //       .status(500)
-    //       .json({ error: err.message });
-    //   });
+    getAllItems(db)
+      .then((items) => {
+        res.render("menu", { items });
+      });
   });
   return router;
 };
