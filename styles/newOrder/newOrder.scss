@@ -1,0 +1,92 @@
+/*
+*   css for newOrder page
+*   Author : Junsung Park@github.com/zeipar
+*   Date   : 04/Apr/2020
+*/
+
+// top container
+.container {
+  display: flex;
+  max-width: inherit;
+}
+
+// Menu items
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+.card {
+  flex: 1 0 26%;
+  margin: 1em;
+  height: 40em;
+  width: 20em;
+  display: flex;
+
+}
+
+.card-body {
+  height: 50%;
+}
+.card-footer {
+  // margin-left:5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.counter {
+  width: 45px;
+  border-radius: 0px !important;
+  text-align: center;
+  padding: 4px 6px;
+  border: 1px solid #cccccc;
+}
+.up_count {
+  // margin-bottom: 10px;
+  margin-left: -4px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.down_count {
+  // margin-bottom: 10px;
+  margin-right: -4px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+// cart
+.cart {
+  background-color: rgb(196, 149, 88);
+  display: flex;
+  height: 60em;
+  margin: 1em;
+  width: 20em;
+  flex-direction: column;
+}
+.cart-header {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em;
+}
+.cart-body {
+  display: flex;
+  flex-direction: column;
+}
+.cart-body * {
+  display: flex;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+}
+
+// images max width/height
+
+img {
+  max-height: 300px;
+  // height: auto;
+  // width: auto;
+
+
+}
