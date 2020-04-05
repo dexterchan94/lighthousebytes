@@ -1,5 +1,5 @@
 const getAllItems = (db) => {
-  return db.query(`SELECT * FROM items;`)
+  return db.query(`SELECT * FROM items WHERE active = true;`)
         .then(data => {
           return data.rows;
         })
