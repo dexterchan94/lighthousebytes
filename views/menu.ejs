@@ -3,83 +3,24 @@
 
 <head>
   <title>Home Page</title>
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" type="text/css" />
+
+  <!-- Internal CSS -->
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/newOrder/newOrder.css" type="text/css" />
 
+
+  <!-- External JS -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
-  <style>
-    .items {
-      display: flex;
-      flex-wrap: wrap;
-      width: 70%;
+  <!-- Internal JS -->
+  <script type="text/javascript" src="/scripts/newOrder.js"></script>
 
-    }
-
-    .card {
-      flex: 1 0 26%;
-      margin: 1em;
-      height: 40em;
-      width: 20em;
-    }
-
-    .container {
-      display: flex;
-      max-width: inherit;
-    }
-
-    .cart {
-      background-color: antiquewhite;
-      display: flex;
-      height: 60em;
-      margin: 1em;
-      width: 20em;
-      flex-direction: column;
-    }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-evenly;
-      margin: 1em;
-    }
-
-    .cart-body {
-      display: flex;
-      flex-direction: column;
-
-    }
-
-    .cart-body * {
-      display: flex;
-    }
-
-    .sticky {
-      position: fixed;
-      top: 0;
-      margin-top: 0;
-    }
-  </style>
-  <script>
-    $(() => {
-      window.onscroll = () => makeSideSticky();
-
-      const sideBar = $('#cart');
-      const sticky = sideBar[0].offsetTop;
-
-      const makeSideSticky = () => {
-        if (window.pageYOffset >= sticky) {
-          sideBar.addClass('sticky');
-        } else {
-          sideBar.removeClass('sticky');
-        }
-      };
-
-    });
-
-  </script>
 
 </head>
 
@@ -107,7 +48,14 @@
         <div class="card-body">
           <h5 class="card-title"><%= item.name %></h5>
           <p class="card-text"><%= item.description %></p>
-          <a href="#" class="btn btn-primary">Add to Cart</a>
+          <div class="card-footer">
+            <div class="counterBox">
+              <button class='down_count btn btn-info' title='Down'><i class='fas fa-minus'></i></button>
+              <input class='counter' type="text" value='0' />
+              <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
+            </div>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+          </div>
         </div>
       </article>
 
