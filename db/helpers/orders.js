@@ -20,6 +20,8 @@ const getAllOrders = (db) => {
     });
 };
 
+
+
 const getOrderItems = (db, orderID) => {
   const queryString = `
   SELECT items.name AS item_name, order_items.quantity AS quantity, (items.price * quantity) AS item_total
