@@ -13,17 +13,17 @@ $(() => {
     }
   };
 
-  $('button').click(function (e) {
-    console.log(this);
-    // let button_classes, value = +$('.counter').val();
-    // button_classes = $(e.currentTarget).prop('class');
-    // if (button_classes.indexOf('up_count') !== -1) {
-    //   this.value = (this.value) + 1;
-    // } else {
-    //   this.value = (this.value) - 1;
-    // }
-    // value = value < 0 ? 0 : value;
-    // $('.counter').val(value);
+  $('button').click(function() {
+    let qty = this.parentNode.childNodes[3].value;
+    // console.log(this.parentNode.childNodes[7].id);
+
+    if (this.className.indexOf('up_count') !== -1) {
+      qty = Number(qty) + 1;
+    } else {
+      qty = Number(qty) - 1;
+    };
+    qty = qty < 0 ? 0 : qty;
+    this.parentNode.childNodes[3].value = qty;
   });
   $('.counter').click(function () {
     $(this).focus().select();
