@@ -16,6 +16,16 @@ module.exports = (db) => {
         res.render("orders", { orders });
       });
   });
+
+  router.post("/:id/accept", (req, res) => {
+    console.log(`Order ${req.params.id} accepted! Estimated time: ${req.body.preptime} minutes`);
+    res.redirect("/orders");
+  });
+
+  router.post("/:id/complete", (req, res) => {
+    console.log(`Order ${req.params.id} completed!`);
+    res.redirect("/orders");
+  });
   return router;
 };
 
