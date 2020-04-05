@@ -16,8 +16,38 @@
     <%- include("partials/navbar") %>
 
 
-    <div id="menu" class="container">
-      <h1>This is the orders page!</h1>
+    <div class="container">
+      <h1>Orders</h1>
+
+      <% for (let i = 0; i < orders.length; i++) { %>
+
+        <div class="card mb-3">
+          <div class="row no-gutters">
+
+            <div class="col-md-12">
+              <div class="d-flex flex-column justify-content-center card-body h-100">
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <span class="card-title">Order id: <%= orders[i].id %></span>
+                </div>
+                <p class="card-text">Name: <%= `${orders[i].first_name} ${orders[i].last_name}` %></p>
+                <p class="card-text">Status: <%= orders[i].status%></p>
+                <p class="card-text">Total: $<%= (orders[i].total_price / 100).toFixed(2) %></p>
+                <p class="card-text">Created at: <%= orders[i].created_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
+                <p class="card-text">Accepted at: <%= orders[i].accepted_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
+                <p class="card-text">Completed at: <%= orders[i].completed_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
+                <p class="card-text">Special request: <%= orders[i].special_request%></p>
+                <p class="card-text">Order Summary</p>
+
+                <% console.log("ORDER ITEMS", orders[i]) %>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% } %>
+
     </div>
 
 
