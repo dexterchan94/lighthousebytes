@@ -13,7 +13,6 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     getAllOrders(db)
       .then((orders) => {
-        console.log(orders);
         res.render("orders", { orders });
       });
   });

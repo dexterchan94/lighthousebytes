@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/orders.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -19,27 +20,63 @@
     <div class="container">
       <h1>Orders</h1>
 
-      <% for (let i = 0; i < orders.length; i++) { %>
+      <% for (const order of orders) { %>
 
         <div class="card mb-3">
           <div class="row no-gutters">
 
             <div class="col-md-12">
               <div class="d-flex flex-column justify-content-center card-body h-100">
+
                 <div class="d-flex flex-row justify-content-between align-items-center">
-                  <span class="card-title">Order id: <%= orders[i].id %></span>
+                  <span class="card-title">Order #<%= order.id %></span>
+                  <span class="card-title"><%= `${order.first_name} ${order.last_name}` %></span>
                 </div>
-                <p class="card-text">Name: <%= `${orders[i].first_name} ${orders[i].last_name}` %></p>
-                <p class="card-text">Status: <%= orders[i].status%></p>
-                <p class="card-text">Total: $<%= (orders[i].total_price / 100).toFixed(2) %></p>
-                <p class="card-text">Created at: <%= orders[i].created_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
-                <p class="card-text">Accepted at: <%= orders[i].accepted_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
-                <p class="card-text">Completed at: <%= orders[i].completed_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></p>
-                <p class="card-text">Special request: <%= orders[i].special_request%></p>
-                <p class="card-text">Order Summary</p>
 
-                <p><%= orders[i].items[0].item_name %></p>
+                <ul>
+                  <% for (item of order.items) { %>
+                    <li><%= item.item_name %> x <%= item.quantity %></li>
+                  <% } %>
+                </ul>
 
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <span class="card-title">Total: $<%= (order.total_price / 100).toFixed(2) %></span>
+                  <% if (order.status === 'pending') { %>
+                    <span class="card-text">Created at: <%= order.created_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></span>
+                  <% } else if (order.status === 'accepted') { %>
+                    <span class="card-text">Accepted at: <%= order.accepted_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></span>
+                  <% } else if (order.status === 'completed') { %>
+                    <span class="card-text">Completed at: <%= order.completed_at.toLocaleString("en-US", {timeZone: "America/Vancouver", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})%></span>
+                  <% } %>
+                </div>
+
+                <p class="card-text">Special request: <%= order.special_request%></p>
+                <p class="card-text">Customer rating: <%= order.rating%></p>
+
+                <div class="d-flex flex-row justify-content-end align-items-center">
+
+                  <% if (order.status === 'pending') { %>
+
+                    <form method="POST" action="/orders/<%= order.id %>/accept">
+                      <input type="number" name="preptime" placeholder="minutes">
+                      <button type="submit" class="btn btn-outline-primary mx-2">Accept</button>
+                    </form>
+
+                    <form method="POST" action="/orders/<%= order.id %>/reject">
+                      <button type="submit" class="btn btn-outline-danger mx-2">Reject</button>
+                    </form>
+
+                  <% } else if (order.status === 'accepted') { %>
+
+                    <form method="POST" action="/orders/<%= order.id %>/complete">
+                      <button type="submit" class="btn btn-outline-success mx-2">Complete</button>
+                    </form>
+
+                  <% } %>
+
+
+
+                </div>
 
               </div>
             </div>
