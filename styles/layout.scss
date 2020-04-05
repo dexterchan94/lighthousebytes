@@ -36,3 +36,14 @@ body {
 .navbar-brand {
   font-size: 1.5rem;
 }
+
+.page-footer {
+  background-color: $theme-color;
+  width: 100%;
+  height: 200px;
+}
+
+.page-footer p {
+  color: white;
+  font-size: 1rem;
+}
