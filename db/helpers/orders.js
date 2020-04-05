@@ -1,11 +1,11 @@
 const getAllOrders = (db) => {
   const queryString = `
-  SELECT DISTINCT orders.*, users.first_name AS first_name, users.last_name AS last_name, SUM(order_items.quantity * items.price) AS total_price
+  SELECT DISTINCT orders.*, users.first_name AS first_name, users.last_name AS last_name, SUM(order_items.quantity * items.price) AS total_price, users.type AS user_type
   FROM orders
   JOIN users ON users.id = orders.user_id
   JOIN order_items ON order_items.order_id = orders.id
   JOIN items ON items.id = order_items.item_id
-  GROUP BY orders.id, users.first_name, users.last_name
+  GROUP BY orders.id, users.first_name, users.last_name, users.type
   ORDER BY orders.created_at DESC;
   `;
   return db.query(queryString)

@@ -13,7 +13,11 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     getAllOrders(db)
       .then((orders) => {
-        res.render("orders", { orders });
+        let userType;
+        if (req.session.user_id === "1" || req.session.user_id === "2") {
+          userType = "admin";
+        }
+        res.render("orders", { orders, user_id: req.session.user_id, userType });
       });
   });
 
