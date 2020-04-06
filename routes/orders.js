@@ -19,9 +19,9 @@ module.exports = (db) => {
   });
 
   router.get("/data", (req, res) => {
-
     getAllOrders(db)
       .then((orders) => {
+        let userType;
         if (req.session.user_id === "1" || req.session.user_id === "2") {
           userType = "admin";
         }
@@ -30,15 +30,6 @@ module.exports = (db) => {
       .catch((err) => {
         console.log(err);
       });
-    // getAllOrders(db)
-    //   .then((orders) => {
-    //     let userType;
-    //     if (req.session.user_id === "1" || req.session.user_id === "2") {
-    //       userType = "admin";
-    //     }
-    //     res.render("orders", { orders, user_id: req.session.user_id, userType });
-    //   });
-
   });
 
 
