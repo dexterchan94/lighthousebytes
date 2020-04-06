@@ -1,12 +1,12 @@
 const createOrderElement = (order, user_id, userType) => {
   let markup = `
-  <article class="order-${order.id} card mb-3">
+  <article class="order-${order.id} card mb-3 order-box">
     <div class="row no-gutters">
       <div class="col-md-12">
-        <div class="d-flex flex-column justify-content-center card-body h-100">
+        <div class="d-flex flex-column justify-content-between card-body">
           <div class="d-flex flex-row justify-content-between align-items-center">
-            <span class="card-title">Order #${order.id}</span>
-            <span class="card-title">${order.first_name} ${order.last_name}</span>
+            <span class="card-title order-number">Order #${order.id}</span>
+            <span class="card-title customer-name">${order.first_name} ${order.last_name}</span>
           </div>
           <ul>
   `;
@@ -16,21 +16,23 @@ const createOrderElement = (order, user_id, userType) => {
   }
 
   markup += `
-          <div class="d-flex flex-row justify-content-between align-items-center my-3">
-          <span class="card-title">Total: $${(order.total_price / 100).toFixed(2)}</span>
+          </ul>
+          <div class="d-flex flex-row justify-content-between align-items-center">
+          <span class="card-text total-price">Total: $${(order.total_price / 100).toFixed(2)}</span>
   `;
 
   if (order.status === 'pending') {
     let dateCreated = new Date(order.created_at);
-    markup += `<span class="card-text status-text">Created at: ${dateCreated.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text text-muted">Created at: ${dateCreated.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   } else if (order.status === 'accepted') {
     let dateAccepted = new Date(order.accepted_at);
-    markup += `<span class="card-text status-text">Accepted at: ${dateAccepted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text text-muted">Accepted at: ${dateAccepted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   } else if (order.status === 'completed') {
     let dateCompleted = new Date(order.completed_at);
-    markup += `<span class="card-text status-text">Completed at: ${dateCompleted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text text-muted">Completed at: ${dateCompleted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   }
   markup += `
+
           </div>
           <div class="d-flex flex-row justify-content-end align-items-center mt-3">
   `;
@@ -52,7 +54,6 @@ const createOrderElement = (order, user_id, userType) => {
   markup += `
             </div>
           <p class="error-text hidden my-2 text-danger">Enter order preparation time</p>
-          </ul>
         </div>
       </div>
     </div>
@@ -70,7 +71,7 @@ const renderOrders = (data) => {
   if (!data.user_id) {
     $("#orders-container").append(`<h1>Please login to view this page</h1>`);
   } else {
-    $("#orders-container").append(`<h1>Orders</h1>`);
+    $("#orders-container").append(`<h1 class="mt-5">Orders</h1>`);
     for (order of data.orders) {
       if (order.user_id == data.user_id || data.userType === "admin") {
         $("#orders-container").append(createOrderElement(order, data.user_id, data.userType));
