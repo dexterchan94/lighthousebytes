@@ -6,20 +6,27 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
-const { getAllItems } = require("../db/helpers/order.js");
+const { getAllItems, placeOrder } = require("../db/helpers/order.js");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
     getAllItems(db)
-      .then((items) => {
+      .then(items => {
         res.render("menu", { items });
       });
   });
 
-  router.post("/", (req, res) =>{
-    console.log(req.body);
+  router.post("/", (req, res) => {
+    console.log('happy!');
+    placeOrder(db, req.body, req.session.user_id)
+      .then(orderId => {
+        res.send(200, orderId);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
   })
   return router;
