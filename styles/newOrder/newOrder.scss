@@ -89,6 +89,7 @@
 .cart-body-wrapper {
   display: flex;
   flex-grow: 4;
+  flex-direction: inherit;
   padding: 20px;
   border-bottom:1px solid rgb(225, 229, 232)
 }
@@ -117,6 +118,10 @@
     font-size: x-large;
   }
 }
+.rmv-btn:hover {
+  cursor: pointer;
+}
+
 .sticky {
   position: fixed;
   top: 0;
@@ -129,6 +134,4 @@ img {
   height: 25em;
   // height: auto;
   width: auto;
-
-
 }
