@@ -134,7 +134,8 @@ $(() => {
     $.post('/order', $data)
       .done((orderID) => {
         console.log('orderid: ', orderID);
-        window.location.href = "/orders";
+        $('#successModal').modal('show');
+        // window.location.href = "/orders";
       })
       .catch((err) => {
         console.error(err);
