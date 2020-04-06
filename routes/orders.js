@@ -11,15 +11,36 @@ const { getAllOrders, acceptOrder, completeOrder } = require("../db/helpers/orde
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    let userType;
+    if (req.session.user_id === "1" || req.session.user_id === "2") {
+      userType = "admin";
+    }
+    res.render("orderstest", { user_id: req.session.user_id, userType });
+  });
+
+  router.get("/data", (req, res) => {
+
     getAllOrders(db)
       .then((orders) => {
-        let userType;
         if (req.session.user_id === "1" || req.session.user_id === "2") {
           userType = "admin";
         }
-        res.render("orders", { orders, user_id: req.session.user_id, userType });
+        res.json({ orders, user_id: req.session.user_id, userType});
+      })
+      .catch((err) => {
+        console.log(err);
       });
+    // getAllOrders(db)
+    //   .then((orders) => {
+    //     let userType;
+    //     if (req.session.user_id === "1" || req.session.user_id === "2") {
+    //       userType = "admin";
+    //     }
+    //     res.render("orders", { orders, user_id: req.session.user_id, userType });
+    //   });
+
   });
+
 
   router.post("/:id/accept", (req, res) => {
     acceptOrder(db, req.params.id)
