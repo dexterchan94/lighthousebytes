@@ -25,6 +25,14 @@ $(() => {
     const $itemQty = $('<div>').addClass('col-3');
     $itemQty.append(`Qty: ${qty}`);
 
+    // item quantity for form input
+    const $itemQtyInput = $('<input>').attr({
+      type: 'hidden',
+      value: qty,
+      name: `qty${itemId}`,
+      id: `qty${itemId}`
+    });
+
     // item price
     const $itemPrice = $('<div>').addClass('col-3 sum-price');
     $itemPrice.append(`$${(price / 100 * qty).toFixed(2)}`);
@@ -39,7 +47,7 @@ $(() => {
     $removeButton.append($removeIcon);
 
     // append name, quantity, price to $cartItem
-    $cartItem.append($itemName, $itemQty, $itemPrice, $itemPriceHidden, $removeButton);
+    $cartItem.append($itemName, $itemQty, $itemPrice, $itemPriceHidden, $removeButton, $itemQtyInput);
 
     return $cartItem;
   };
@@ -111,12 +119,20 @@ $(() => {
     }
   });
 
-  $('.cart-checkout').click(function () {
-    console.log('checkout!');
-  });
 
   // toggleClass on dynamically generated elements
-  $('body').on('mouseenter', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
-  $('body').on('mouseleave', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseenter', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseleave', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+
+  // stop sumbit behaviopr
+
+  $('.cart-checkout').click((event) => {
+    event.preventDefault();
+
+    const $data = $('#orderForm').serialize();
+    console.log($data);
+  });
+
+
 
 });
