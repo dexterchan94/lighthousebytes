@@ -18,11 +18,11 @@ $(() => {
     $cartItem.attr('id', `cart-${itemId}`);
 
     // item name
-    const $itemName = $('<div>').addClass('col-6');
+    const $itemName = $('<div>').addClass('col-5');
     $itemName.append(name);
 
     // item quantity
-    const $itemQty = $('<div>').addClass('col-2');
+    const $itemQty = $('<div>').addClass('col-3');
     $itemQty.append(`Qty: ${qty}`);
 
     // item price
@@ -41,7 +41,6 @@ $(() => {
     // append name, quantity, price to $cartItem
     $cartItem.append($itemName, $itemQty, $itemPrice, $itemPriceHidden, $removeButton);
 
-    console.log($cartItem);
     return $cartItem;
   };
   const getSumPrice = () => {
@@ -55,7 +54,6 @@ $(() => {
 
   $('.counterBox button').click(function () {
     let qty = this.parentNode.childNodes[3].value;
-    // console.log(this.parentNode.childNodes[7].id);
 
     if (this.className.indexOf('up_count') !== -1) {
       qty = Number(qty) + 1;
