@@ -121,16 +121,24 @@ $(() => {
 
 
   // toggleClass on dynamically generated elements
-  $('body').on('mouseenter', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
-  $('body').on('mouseleave', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseenter', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseleave', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
 
-  // stop sumbit behaviopr
+  // stop sumbit behavior
 
-  $('.cart-checkout').click((event) => {
-    event.preventDefault();
-
+  $('.cart-checkout').click((e) => {
+    e.preventDefault();
     const $data = $('#orderForm').serialize();
-    console.log($data);
+    console.log($data)
+
+    $.post('/order', $data)
+    .done(() => {
+      // modal to show order is successfully placed
+      // redirect to orders/:id or users/:id
+    })
+    .catch((err) =>{
+      console.error(err);
+    });
   });
 
 
