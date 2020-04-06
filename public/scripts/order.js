@@ -121,8 +121,8 @@ $(() => {
 
 
   // toggleClass on dynamically generated elements
-  $('body').on('mouseenter', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
-  $('body').on('mouseleave', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseenter', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseleave', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
 
   // stop sumbit behavior
 
@@ -132,13 +132,13 @@ $(() => {
     console.log($data)
 
     $.post('/order', $data)
-    .done(() => {
-      // modal to show order is successfully placed
-      // redirect to orders/:id or users/:id
-    })
-    .catch((err) =>{
-      console.error(err);
-    });
+      .done((orderID) => {
+        console.log('orderid: ', orderID);
+        window.location.href = "/orders";
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
 
