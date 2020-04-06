@@ -49,14 +49,17 @@
         <div class="card-body">
           <h5 class="card-title"><%= item.name %></h5>
           <p class="card-text"><%= item.description %></p>
+          <h5 class="card-text">$<%= (item.price / 100).toFixed(2)%></h5>
           <div class="card-footer">
             <div class="counterBox">
               <button class='down_count btn btn-info' title='Down'><i class='fas fa-minus'></i></button>
               <input class='counter' type="text" value='0' />
               <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
               <input type="hidden" id='item<%= item.id %>'>
+              <input type="hidden" value='<%= item.price %>' />
+
             </div>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <button class="add-cart btn btn-primary">Add to Cart</a>
           </div>
         </div>
       </article>
