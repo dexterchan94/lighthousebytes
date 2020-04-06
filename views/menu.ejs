@@ -14,14 +14,14 @@
 
   <!-- Internal CSS -->
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/newOrder/newOrder.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/order.css" type="text/css" />
 
 
   <!-- External JS -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <!-- Internal JS -->
-  <script type="text/javascript" src="/scripts/newOrder.js"></script>
 
+  <!-- Internal JS -->
+  <script type="text/javascript" src="/scripts/order.js"></script>
 
 </head>
 
@@ -48,15 +48,18 @@
         <img src="<%= item.photo_url %>" class="card-img-top" alt="">
         <div class="card-body">
           <h5 class="card-title"><%= item.name %></h5>
-          <input type="hidden" id="<%= item.id %>">
           <p class="card-text"><%= item.description %></p>
+          <h5 class="card-text">$<%= (item.price / 100).toFixed(2)%></h5>
           <div class="card-footer">
             <div class="counterBox">
               <button class='down_count btn btn-info' title='Down'><i class='fas fa-minus'></i></button>
               <input class='counter' type="text" value='0' />
               <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
+              <input type="hidden" id='item<%= item.id %>' />
+              <input type="hidden" value='<%= item.price %>' />
+
             </div>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <button class="add-cart btn btn-primary">Add to Cart</a>
           </div>
         </div>
       </article>
@@ -64,49 +67,30 @@
       <% } %>
     </section>
     <aside>
+      <form id="orderForm">
       <div class="cart" id="cart">
-        <!-- <div class="cart-header">
-          <h3>Items</h3>
-          <h3>Qty</h3>
-          <h3>Price</h3>
-        </div>
-        <div class="cart-body">
-          <div class="item1">
-            <h4>French Toast</h4>
-            <h6>1</h6>
-            <h6>$8.50</h6>
-          </div>
-          <div class="item2">
-            <h4>Grilled Porkchop</h4>
-            <h6>2</h6>
-            <h6>$27.00</h6>
-          </div>
-          <div class="item3">
-            <h4>Pan-roasted Salmon</h4>
-            <h6>1</h6>
-            <h6>$12.50</h6>
-          </div>
-        </div> -->
         <div class="cart-header-wrapper">
           <h3>Your order</h3>
         </div>
         <div class="cart-promotion-wrapper">
           <div>Order now to save $7</div>
         </div>
-        <div class="cart-body-wrapper">
-          <h3>Start adding items from the menu</h3>
-        </div>
-        <div class=cart-footer-wrapper">
-          <div class="cart-total-wrapper">
-            <div>Food & Beverages Subtotal</div>
-            <div class="total-price">$50.23</div>
+          <div class="cart-body-wrapper">
+            <h3>Start adding items from the menu</h3>
           </div>
-          <div class="cart-checkout-wrapper">
-            <button class="btn btn-info btn-lg cart-checkout" type="button" disabled>Checkout</button>
+          <div class=cart-footer-wrapper">
+            <div class="cart-total-wrapper hidden">
+              <div>Subtotal Amount</div>
+              <div class="total-price"></div>
+              <!-- <input type="hidden" id="total-price" name="total-price" value=0 /> -->
+            </div>
+            <div class="cart-checkout-wrapper">
+              <button class="btn btn-info btn-lg cart-checkout" type="submit" disabled>Checkout</button>
+            </div>
           </div>
-        </div>
 
-      </div>
+        </div>
+      </form>
     </aside>
 
 

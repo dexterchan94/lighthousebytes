@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { getAllItems } = require("../db/helpers/01_items");
+const { getAllItems } = require("../db/helpers/order.js");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -17,5 +17,10 @@ module.exports = (db) => {
         res.render("menu", { items });
       });
   });
+
+  router.post("/", (req, res) =>{
+    console.log(req.body);
+
+  })
   return router;
 };

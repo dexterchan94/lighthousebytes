@@ -1,7 +1,8 @@
 /*
-*   css for newOrder page
-*   Author : Junsung Park@github.com/zeipar
-*   Date   : 04/Apr/2020
+*   css for order page
+*   Author        : Junsung Park@github.com/zeipar
+*   Published     : 04/Apr/2020
+*   Last Updated  : 05/Apr/2020
 */
 
 // top container
@@ -20,7 +21,7 @@
   flex: 1 0 26%;
   margin: 1em;
   height: 40em;
-  width: 20em;
+  width: 30%;
   display: flex;
 
 }
@@ -89,6 +90,7 @@
 .cart-body-wrapper {
   display: flex;
   flex-grow: 4;
+  flex-direction: inherit;
   padding: 20px;
   border-bottom:1px solid rgb(225, 229, 232)
 }
@@ -117,10 +119,15 @@
     font-size: x-large;
   }
 }
+
+.rmv-btn:hover {
+  cursor: pointer;
+}
+
 .sticky {
   position: fixed;
   top: 0;
-  margin-top: 92px;
+  margin-top: 90px;
 }
 
 // images max width/height
@@ -129,6 +136,32 @@ img {
   height: 25em;
   // height: auto;
   width: auto;
+}
 
+// hidden
 
+.hidden {
+  display: none;
+}
+
+.row {
+  font-size: x-large;
+  display: flex;
+  padding: 20px;
+  // justify-content: center;
+  align-items: center;
+  .col-3 {
+    display: flex;
+    align-items: center;
+  }
+  .col-5 {
+    display: flex;
+    align-items: center;
+  }
+}
+
+#orderItemsForm {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 4;
 }
