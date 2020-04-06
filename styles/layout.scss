@@ -1,10 +1,13 @@
 // See: https://sass-lang.com/
 $theme-color: #03a5fc;
-
+html {
+  min-height: 100vh;
+}
 
 body {
   background-color: #EEE;
-
+  padding-top: 50px;
+  min-height: 100vh;
   h1 {
     color: #244751;
   }
