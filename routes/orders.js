@@ -15,7 +15,7 @@ module.exports = (db) => {
     if (req.session.user_id === "1" || req.session.user_id === "2") {
       userType = "admin";
     }
-    res.render("orderstest", { user_id: req.session.user_id, userType });
+    res.render("orders", { user_id: req.session.user_id, userType });
   });
 
   router.get("/data", (req, res) => {
@@ -33,22 +33,24 @@ module.exports = (db) => {
   });
 
 
+
   router.post("/:id/accept", (req, res) => {
     acceptOrder(db, req.params.id)
       .then(() => {
-        console.log(`Order ${req.params.id} accepted! Estimated time: ${req.body.preptime} minutes`);
-        res.redirect("/orders");
+        res.send();
       })
       .catch((err) => {
         console.log(err);
       });
   });
 
+
+
+
   router.post("/:id/complete", (req, res) => {
     completeOrder(db, req.params.id)
       .then(() => {
-        console.log(`Order ${req.params.id} completed!`);
-        res.redirect("/orders");
+        res.send();
       })
       .catch((err) => {
         console.log(err);

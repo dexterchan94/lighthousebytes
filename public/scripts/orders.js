@@ -1,4 +1,3 @@
-
 const createOrderElement = (order, user_id, userType) => {
   let markup = `
   <article class="order-${order.id} card mb-3">
@@ -23,13 +22,13 @@ const createOrderElement = (order, user_id, userType) => {
 
   if (order.status === 'pending') {
     let dateCreated = new Date(order.created_at);
-    markup += `<span class="card-text">Created at: ${dateCreated.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text">Created at: ${dateCreated.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   } else if (order.status === 'accepted') {
     let dateAccepted = new Date(order.accepted_at);
-    markup += `<span class="card-text">Accepted at: ${dateAccepted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text">Accepted at: ${dateAccepted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   } else if (order.status === 'completed') {
     let dateCompleted = new Date(order.completed_at);
-    markup += `<span class="card-text">Completed at: ${dateCompleted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+    markup += `<span class="card-text status-text">Completed at: ${dateCompleted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   }
   markup += `
           </div>
@@ -37,28 +36,22 @@ const createOrderElement = (order, user_id, userType) => {
   `;
 
   if (userType === "admin") {
-    if (order.status === 'pending') {
       markup += `
-      <form class="accept-form" method="POST" action="/orders/${order.id}/accept">
-        <input type="number" name="preptime" placeholder="minutes">
+      <form class="accept-form hidden" method="POST" action="/orders/${order.id}/accept" data-order-id="${order.id}">
+        <input type="number" class="preptime" name="preptime" placeholder="minutes to prepare">
         <button type="submit" class="btn btn-outline-primary mx-2">Accept</button>
       </form>
-
-      <form class="reject-form" method="POST" action="/orders/${order.id}/reject">
-        <button type="submit" class="btn btn-outline-danger mx-2">Reject</button>
-      </form>
       `;
-    } else if (order.status === 'accepted') {
       markup += `
-      <form class="complete-form" method="POST" action="/orders/${order.id}/complete">
+      <form class="complete-form hidden" method="POST" action="/orders/${order.id}/complete" data-order-id="${order.id}">
         <button type="submit" class="btn btn-outline-success mx-2">Complete</button>
       </form>
       `;
-    }
   }
 
   markup += `
-          </div>
+            </div>
+          <p class="error-text hidden my-2 text-danger">Enter order preparation time</p>
           </ul>
         </div>
       </div>
@@ -73,6 +66,7 @@ const createOrderElement = (order, user_id, userType) => {
 
 const renderOrders = (data) => {
   $("#orders-container").empty();
+
   if (!data.user_id) {
     $("#orders-container").append(`<h1>Please login to view this page</h1>`);
   } else {
@@ -80,12 +74,18 @@ const renderOrders = (data) => {
     for (order of data.orders) {
       if (order.user_id == data.user_id || data.userType === "admin") {
         $("#orders-container").append(createOrderElement(order, data.user_id, data.userType));
+        if (order.status === 'pending') {
+          $(`.order-${order.id} .accept-form`).removeClass("hidden");
+        } else if (order.status === 'accepted') {
+          $(`.order-${order.id} .complete-form`).removeClass("hidden");
+        }
       }
     }
   }
 };
 
 const loadOrders = () => {
+
   $.get("/orders/data")
   .done((data) => {
     renderOrders(data);
@@ -93,36 +93,53 @@ const loadOrders = () => {
   .fail((err) => {
     console.log(err);
   });
+
 };
 
 $(document).ready(() => {
 
   loadOrders();
 
-
-  $(".accept-form").on('submit', function (event) {
-    // Prevent page from refreshing
+  $("#orders-container").on('submit', '.accept-form', function (event) {
     event.preventDefault();
 
-    $.post(`/order/${this.id}/accept`, $(this).serialize())
-      .done(() => {
-        console.log(`Order ${this.id} accepted! Estimated time: ${this.preptime} minutes`);
-        loadOrders();
-      })
-      .fail((err) => {
-        console.log(err);
-      });
+    const $form = $(this);
+    const data = $form.data();
+    const orderId = data.orderId;
+    const $prepTimeInput = $form.find('.preptime');
+    if (!$prepTimeInput.val()) {
+      $(`.order-${orderId} .error-text`).slideDown();
+    } else {
+      $.post(`/orders/${orderId}/accept`, $(this).serialize())
+        .done((res) => {
+          $(`.order-${orderId} .error-text`).slideUp();
+          // console.log(`Order ${orderId} accepted! Estimated time: ${$prepTimeInput.val()} minutes`);
+          $(`.order-${orderId} .accept-form`).addClass("hidden");
+          $(`.order-${orderId} .complete-form`).removeClass("hidden");
+          $(`.order-${orderId} .status-text`).html(`Accepted at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
+        })
+        .fail((err) => {
+          console.log(err);
+        });
+    }
+
   });
 
-  $(".complete-form").on('submit', function (event) {
-    // Prevent page from refreshing
+
+  $("#orders-container").on('submit', '.complete-form', function (event) {
     event.preventDefault();
 
-    $.post(`/order/${this.id}/complete`, $(this).serialize())
-      .done(() => {
-        console.log(`Order ${this.id} completed!`);
+    const $form = $(this);
+    const data = $form.data();
+    const orderId = data.orderId;
+    console.log(orderId);
 
-        loadOrders();
+    $.post(`/orders/${orderId}/complete`)
+      .done((res) => {
+        // console.log(`Order ${orderId} completed!`);
+        $(`.order-${orderId} .complete-form`).addClass("hidden");
+        $(`.order-${orderId} .status-text`).html(`Completed at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
+
       })
       .fail((err) => {
         console.log(err);
