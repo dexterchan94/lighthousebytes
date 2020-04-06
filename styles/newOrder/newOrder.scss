@@ -118,6 +118,7 @@
     font-size: x-large;
   }
 }
+
 .rmv-btn:hover {
   cursor: pointer;
 }
@@ -134,4 +135,10 @@ img {
   height: 25em;
   // height: auto;
   width: auto;
+}
+
+// hidden
+
+.hidden {
+  display: none;
 }
