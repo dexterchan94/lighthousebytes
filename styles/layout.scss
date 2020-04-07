@@ -2,6 +2,8 @@
 $theme-color: #03a5fc;
 html {
   height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
 }
 
 body {
@@ -10,9 +12,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  h1 {
-    color: #244751;
-  }
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
 }
 
 .jumbotron {
@@ -22,12 +23,9 @@ body {
   height: 500px;
 
     h1 {
-      color:white;
+      color:#EEE;
     }
 
-    hr {
-      color: white;
-    }
 }
 
 .navbar.navbar-dark {
