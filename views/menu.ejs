@@ -15,7 +15,7 @@
   <!-- Internal CSS -->
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/order.css" type="text/css" />
-
+  <link rel="stylesheet" href="/styles/orderModal.css" type="text/css" />
 
   <!-- External JS -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -26,10 +26,7 @@
 </head>
 
 <body>
-
   <%- include("partials/navbar") %>
-
-
   <div class="jumbotron">
     <h1 class="display-4">Place an Order!</h1>
     <p class="lead">This jumbotron is just temporary.</p>
@@ -37,13 +34,10 @@
     <h1>Menu</h1>
   </div>
 
-
   <div class="container">
-
 
     <section class="items">
       <% for (item of items) { %>
-
       <article class="card" style="width: 18rem;">
         <img src="<%= item.photo_url %>" class="card-img-top" alt="">
         <div class="card-body">
@@ -57,24 +51,23 @@
               <button class='up_count btn btn-info' title='Up'><i class='fas fa-plus'></i></button>
               <input type="hidden" id='item<%= item.id %>' />
               <input type="hidden" value='<%= item.price %>' />
-
             </div>
             <button class="add-cart btn btn-primary">Add to Cart</a>
           </div>
         </div>
       </article>
-
       <% } %>
     </section>
+
     <aside>
       <form id="orderForm">
-      <div class="cart" id="cart">
-        <div class="cart-header-wrapper">
-          <h3>Your order</h3>
-        </div>
-        <div class="cart-promotion-wrapper">
-          <div>Order now to save $7</div>
-        </div>
+        <div class="cart" id="cart">
+          <div class="cart-header-wrapper">
+            <h3>Your order</h3>
+          </div>
+          <div class="cart-promotion-wrapper">
+            <div>Order now to save $7</div>
+          </div>
           <div class="cart-body-wrapper">
             <h3>Start adding items from the menu</h3>
           </div>
@@ -88,13 +81,28 @@
               <button class="btn btn-info btn-lg cart-checkout" type="submit" disabled>Checkout</button>
             </div>
           </div>
-
         </div>
       </form>
     </aside>
 
-
+    <div id="successModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modalbox success center animate">
+            <div class="icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <!--/.icon-->
+            <h1>Success!</h1>
+            <p>We'll send a confirmation SMS to your phone
+              <br>with your order status.</p>
+            <button type="button" id="successBtn" data-dismiss="modal">Click here to check your order status.</button>
+            <span class="change">-- The participating restaurant may give you a call for confirmation --</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</body>
 
-
-  <%- include("partials/footer") %>
+<%- include("partials/footer") %>

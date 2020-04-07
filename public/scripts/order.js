@@ -51,6 +51,7 @@ $(() => {
 
     return $cartItem;
   };
+  // total price of items in cart
   const getSumPrice = () => {
     let sumPrice = 0;
     $('.sum-price-hidden').each(function () {
@@ -60,6 +61,7 @@ $(() => {
     return `$${(sumPrice / 100).toFixed(2)}`;
   };
 
+  // counter event with +/- buttons
   $('.counterBox button').click(function () {
     let qty = this.parentNode.childNodes[3].value;
 
@@ -71,11 +73,12 @@ $(() => {
     qty = qty < 0 ? 0 : qty;
     this.parentNode.childNodes[3].value = qty;
   });
+
   $('.counter').click(function () {
     $(this).focus().select();
   });
 
-  // event bindig on dynamic elements
+  // event binding on dynamic elements
   $('body').on('click', '.rmv-btn', function () {
     $(this).parent().remove();
 
@@ -90,6 +93,7 @@ $(() => {
 
   });
 
+  // add items to the cart
   $('.add-cart').click(function () {
     const currentNodes = this.parentNode.childNodes[1];
     const itemId = currentNodes.childNodes[7].id;
@@ -109,38 +113,41 @@ $(() => {
       // show total price
       $('.cart-total-wrapper').removeClass('hidden');
 
-
       // update total price
       $('.total-price').append(getSumPrice());
-
 
     } else {
       console.log('Please specify a nubmer of items you want');
     }
   });
 
-
   // toggleClass on dynamically generated elements
-  $('body').on('mouseenter', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
-  $('body').on('mouseleave', '.row', function() { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseenter', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseleave', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
 
   // stop sumbit behavior
-
   $('.cart-checkout').click((e) => {
     e.preventDefault();
     const $data = $('#orderForm').serialize();
-    console.log($data)
 
     $.post('/order', $data)
-    .done(() => {
-      // modal to show order is successfully placed
-      // redirect to orders/:id or users/:id
-    })
-    .catch((err) =>{
-      console.error(err);
-    });
+      .done((orderID) => {
+        console.log('orderid: ', orderID);
+        // open modal with no escape by clicking outside
+        $('#successModal').modal({
+          backdrop: 'static',
+          keyboard: false,
+          show: true
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
-
+  // click a button on modal to redirect
+  $('#successBtn').on('click', () => {
+    window.location.href = '/orders';
+  })
 
 });
