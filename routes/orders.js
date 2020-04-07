@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const { getAllOrders, acceptOrder, completeOrder } = require("../db/helpers/orders");
+const { sendMessage } = require("../db/helpers/message");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -37,6 +38,7 @@ module.exports = (db) => {
   router.post("/:id/accept", (req, res) => {
     acceptOrder(db, req.params.id)
       .then(() => {
+        sendMessage()
         res.send();
       })
       .catch((err) => {
