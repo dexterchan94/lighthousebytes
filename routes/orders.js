@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const { getAllOrders, acceptOrder, completeOrder } = require("../db/helpers/orders");
+const { getAllOrders, acceptOrder, completeOrder, cancelOrder } = require("../db/helpers/orders");
 const { sendMessage } = require("../db/helpers/message");
 
 module.exports = (db) => {
@@ -42,6 +42,18 @@ module.exports = (db) => {
     completeOrder(db, req.params.id)
       .then(() => {
         const message = `Your order is ready for pickup! Order ID: ${req.params.id}.`;
+        sendMessage(db, req.params.id, message);
+        res.send();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  router.post("/:id/cancel", (req, res) => {
+    cancelOrder(db, req.params.id)
+      .then(() => {
+        const message = `Your order was successfully cancelled! Order ID: ${req.params.id}.`;
         sendMessage(db, req.params.id, message);
         res.send();
       })

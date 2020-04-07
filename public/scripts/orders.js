@@ -30,7 +30,11 @@ const createOrderElement = (order, user_id, userType) => {
   } else if (order.status === 'completed') {
     let dateCompleted = new Date(order.completed_at);
     markup += `<span class="card-text status-text text-muted">Completed at: ${dateCompleted.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
+  } else if (order.status === 'cancelled') {
+    let dateCancelled = new Date(order.cancelled_at);
+    markup += `<span class="card-text status-text text-muted">Cancelled at: ${dateCancelled.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
   }
+
   markup += `
 
           </div>
@@ -50,6 +54,12 @@ const createOrderElement = (order, user_id, userType) => {
       </form>
       `;
   }
+
+  markup +=`
+  <form class="cancel-form hidden" method="POST" action="/orders/${order.id}/cancel" data-order-id="${order.id}">
+    <button type="submit" class="btn btn-outline-danger mx-2">Cancel</button>
+  </form>
+  `;
 
   markup += `
             </div>
@@ -77,6 +87,7 @@ const renderOrders = (data) => {
         $("#orders-container").append(createOrderElement(order, data.user_id, data.userType));
         if (order.status === 'pending') {
           $(`.order-${order.id} .accept-form`).removeClass("hidden");
+          $(`.order-${order.id} .cancel-form`).removeClass("hidden");
         } else if (order.status === 'accepted') {
           $(`.order-${order.id} .complete-form`).removeClass("hidden");
         }
@@ -133,13 +144,30 @@ $(document).ready(() => {
     const $form = $(this);
     const data = $form.data();
     const orderId = data.orderId;
-    console.log(orderId);
 
     $.post(`/orders/${orderId}/complete`)
       .done((res) => {
-        // console.log(`Order ${orderId} completed!`);
         $(`.order-${orderId} .complete-form`).addClass("hidden");
         $(`.order-${orderId} .status-text`).html(`Completed at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
+
+      })
+      .fail((err) => {
+        console.log(err);
+      });
+  });
+
+  $("#orders-container").on('submit', '.cancel-form', function (event) {
+    event.preventDefault();
+
+    const $form = $(this);
+    const data = $form.data();
+    const orderId = data.orderId;
+
+    $.post(`/orders/${orderId}/cancel`)
+      .done((res) => {
+        $(`.order-${orderId} .accept-form`).addClass("hidden");
+        $(`.order-${orderId} .cancel-form`).addClass("hidden");
+        $(`.order-${orderId} .status-text`).html(`Cancelled at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
 
       })
       .fail((err) => {
