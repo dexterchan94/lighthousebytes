@@ -6,6 +6,7 @@ CREATE TABLE orders (
   created_at TIMESTAMP DEFAULT NOW(),
   accepted_at TIMESTAMP,
   completed_at TIMESTAMP,
+  cancelled_at TIMESTAMP,
   special_request TEXT,
   status VARCHAR(50) DEFAULT 'pending', -- pending, accepted, completed, cancelled
   rating SMALLINT,
