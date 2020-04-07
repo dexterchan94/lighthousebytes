@@ -1,10 +1,3 @@
-/*
- * All routes for Widgets are defined here
- * Since this file is loaded in server.js into api/widgets,
- *   these routes are mounted onto /widgets
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 const { getAllOrders, acceptOrder, completeOrder } = require("../db/helpers/orders");
@@ -33,12 +26,11 @@ module.exports = (db) => {
       });
   });
 
-
-
   router.post("/:id/accept", (req, res) => {
     acceptOrder(db, req.params.id)
       .then(() => {
-        sendMessage()
+        const message = `Your order was accepted and will be ready for pickup in approximately ${req.body.preptime} minutes. Order ID: ${req.params.id}.`;
+        sendMessage(db, req.params.id, message);
         res.send();
       })
       .catch((err) => {
@@ -46,12 +38,11 @@ module.exports = (db) => {
       });
   });
 
-
-
-
   router.post("/:id/complete", (req, res) => {
     completeOrder(db, req.params.id)
       .then(() => {
+        const message = `Your order is ready for pickup! Order ID: ${req.params.id}.`;
+        sendMessage(db, req.params.id, message);
         res.send();
       })
       .catch((err) => {
