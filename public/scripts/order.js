@@ -5,6 +5,7 @@ $(() => {
   // height of current navBar = 62px + margin around 28px;
   const sticky = sideBar[0].offsetTop - 90;
 
+  // fixed sidebar
   const makeSideSticky = () => {
     if (window.pageYOffset >= sticky) {
       sideBar.addClass('sticky');
@@ -13,6 +14,7 @@ $(() => {
     }
   };
 
+  // build each item HTML to be added in the cart
   const addItem = (itemId, name, qty, price) => {
     const $cartItem = $('<div>').addClass('row');
     $cartItem.attr('id', `cart-${itemId}`);
@@ -54,7 +56,7 @@ $(() => {
   // total price of items in cart
   const getSumPrice = () => {
     let sumPrice = 0;
-    $('.sum-price-hidden').each(function () {
+    $('.sum-price-hidden').each(function() {
       sumPrice += Number(this.innerHTML);
     });
     $('.total-price').empty();
@@ -62,24 +64,24 @@ $(() => {
   };
 
   // counter event with +/- buttons
-  $('.counterBox button').click(function () {
+  $('.counterBox button').click(function() {
     let qty = this.parentNode.childNodes[3].value;
 
     if (this.className.indexOf('up_count') !== -1) {
       qty = Number(qty) + 1;
     } else {
       qty = Number(qty) - 1;
-    };
+    }
     qty = qty < 0 ? 0 : qty;
     this.parentNode.childNodes[3].value = qty;
   });
 
-  $('.counter').click(function () {
+  $('.counter').click(function() {
     $(this).focus().select();
   });
 
   // event binding on dynamic elements
-  $('body').on('click', '.rmv-btn', function () {
+  $('body').on('click', '.rmv-btn', function() {
     $(this).parent().remove();
 
     // update total price
@@ -94,10 +96,10 @@ $(() => {
   });
 
   // add items to the cart
-  $('.add-cart').click(function () {
+  $('.add-cart').click(function() {
     const currentNodes = this.parentNode.childNodes[1];
     const itemId = currentNodes.childNodes[7].id;
-    const qty = currentNodes.childNodes[3].value
+    const qty = currentNodes.childNodes[3].value;
     const price = currentNodes.childNodes[9].value;
     const name = this.parentNode.parentNode.childNodes[1].innerHTML;
 
@@ -109,10 +111,8 @@ $(() => {
       if ($('.row').length > 0) {
         $('.cart-checkout').prop('disabled', false);
       }
-
       // show total price
       $('.cart-total-wrapper').removeClass('hidden');
-
       // update total price
       $('.total-price').append(getSumPrice());
 
@@ -122,17 +122,20 @@ $(() => {
   });
 
   // toggleClass on dynamically generated elements
-  $('body').on('mouseenter', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
-  $('body').on('mouseleave', '.row', function () { $(this.childNodes[4]).toggleClass('hidden') });
+  $('body').on('mouseenter', '.row', function() {
+    $(this.childNodes[4]).toggleClass('hidden');
+  });
+  $('body').on('mouseleave', '.row', function() {
+    $(this.childNodes[4]).toggleClass('hidden');
+  });
 
-  // stop sumbit behavior
+  // stop sumbit behavior and execute Post AJAX call
   $('.cart-checkout').click((e) => {
     e.preventDefault();
     const $data = $('#orderForm').serialize();
 
     $.post('/order', $data)
-      .done((orderID) => {
-        console.log('orderid: ', orderID);
+      .done(() => {
         // open modal with no escape by clicking outside
         $('#successModal').modal({
           backdrop: 'static',
@@ -148,6 +151,6 @@ $(() => {
   // click a button on modal to redirect
   $('#successBtn').on('click', () => {
     window.location.href = '/orders';
-  })
+  });
 
 });

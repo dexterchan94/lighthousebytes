@@ -2,7 +2,7 @@
 *   css for order page
 *   Author        : Junsung Park@github.com/zeipar
 *   Published     : 04/Apr/2020
-*   Last Updated  : 05/Apr/2020
+*   Last Updated  : 08/Apr/2020
 */
 
 // top container
@@ -23,48 +23,43 @@
   height: 40em;
   width: 30%;
   display: flex;
-
 }
-
 .card-body {
   height: 50%;
 }
 .card-footer {
-  // margin-left:5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 .counter {
   width: 45px;
+  height: 38px;
   border-radius: 0px !important;
   text-align: center;
   padding: 4px 6px;
   border: 1px solid #cccccc;
 }
-.up_count {
-  // margin-bottom: 10px;
-  margin-left: -4px;
+.up_count .down_count {
+  margin-top: -2px;
+  margin-left: -5px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
 .down_count {
-  // margin-bottom: 10px;
   margin-right: -4px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
 }
 
 // cart
 .cart {
   background-color: whitesmoke;
   display: flex;
+  justify-content: space-between;
   min-height:30em;
   margin: 1em;
   width: 30em;
   flex-direction: column;
   border-radius: 15px;
-  justify-content: space-between;
 }
 .cart-header {
   display: flex;
@@ -73,7 +68,7 @@
 }
 .cart-header-wrapper {
   padding: 20px;
-  display:flex;
+  display: flex;
 }
 .cart-promotion-wrapper {
   display: flex;
@@ -92,7 +87,9 @@
   flex-grow: 4;
   flex-direction: inherit;
   padding: 20px;
-  border-bottom:1px solid rgb(225, 229, 232)
+  border-bottom: 1px solid rgb(225, 229, 232);
+  overflow-x: hidden;
+  max-height: 700px;
 }
 .cart-body * {
   display: flex;
@@ -107,7 +104,7 @@
   border-radius: 0 0 15px 15px;
 }
 .cart-total-wrapper {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   height: 90px;
@@ -119,37 +116,30 @@
     font-size: x-large;
   }
 }
-
 .rmv-btn:hover {
   cursor: pointer;
+  color: salmon;
 }
-
 .sticky {
   position: fixed;
   top: 0;
   margin-top: 90px;
 }
-
-// images max width/height
-
 img {
   height: 25em;
   // height: auto;
   width: auto;
 }
-
-// hidden
-
 .hidden {
   display: none;
 }
-
 .row {
   font-size: x-large;
   display: flex;
   padding: 20px;
   // justify-content: center;
   align-items: center;
+  border-bottom: inset;
   .col-3 {
     display: flex;
     align-items: center;
