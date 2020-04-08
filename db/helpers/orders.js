@@ -62,9 +62,24 @@ const acceptOrder = (db, orderID) => {
     });
 };
 
+
 const completeOrder = (db, orderID) => {
   const queryString = `
   UPDATE orders SET completed_at = Now(), status = 'completed'
+  WHERE id = $1
+  `;
+  return db.query(queryString, [orderID])
+  .then(data => {
+    return data.rows;
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
+
+const cancelOrder = (db, orderID) => {
+  const queryString = `
+  UPDATE orders SET cancelled_at = Now(), status = 'cancelled'
   WHERE id = $1
   `;
     return db.query(queryString, [orderID])
@@ -74,11 +89,12 @@ const completeOrder = (db, orderID) => {
     .catch(err => {
       console.log(err);
     });
-  };
+};
 
 module.exports = {
   getAllOrders,
   getOrderItems,
   acceptOrder,
-  completeOrder
+  completeOrder,
+  cancelOrder
 };
