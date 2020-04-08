@@ -8,8 +8,9 @@
 const express = require('express');
 const router = express.Router();
 const { getAllItems, placeOrder } = require("../db/helpers/order.js");
-const { sendMessage } = require("../db/helpers/message.js");
+
 const { getUsernameWithID } = require("../db/helpers/username.js");
+const { sendMessage, sendMessageToAdmin } = require("../db/helpers/message.js");
 
 module.exports = (db) => {
 
@@ -38,8 +39,10 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     placeOrder(db, req.body, req.session.user_id)
       .then(orderId => {
-        const message = `You have successfully placed an order! Order ID: ${orderId}.`;
-        sendMessage(db, orderId, message);
+        const customerMsg = `You have successfully placed an order! Order ID: ${orderId}.`;
+        const adminMsg = `A customer has placed an order: ${orderId}. Please review and let the customer know!`;
+        sendMessageToAdmin(db, adminMsg);
+        sendMessage(db, orderId, customerMsg);
         res.send(200, orderId);
       })
       .catch(err => {
