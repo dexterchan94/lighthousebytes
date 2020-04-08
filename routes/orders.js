@@ -2,14 +2,28 @@ const express = require('express');
 const router  = express.Router();
 const { getAllOrders, acceptOrder, completeOrder, cancelOrder } = require("../db/helpers/orders");
 const { sendMessage } = require("../db/helpers/message");
+const { getUsernameWithID } = require("../db/helpers/username");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let userType;
+    const templateVars = {
+      userType: "",
+      user_id: req.session.user_id,
+      username: null
+    };
+
     if (req.session.user_id === "1" || req.session.user_id === "2") {
-      userType = "admin";
+      templateVars.userType = "admin";
     }
-    res.render("orders", { user_id: req.session.user_id, userType });
+    if (req.session.user_id) {
+      getUsernameWithID(db, req.session.user_id)
+        .then((username) => {
+          templateVars.username = username;
+          res.render("orders", templateVars);
+        })
+    } else {
+      res.render("orders", templateVars);
+    }
   });
 
   router.get("/data", (req, res) => {

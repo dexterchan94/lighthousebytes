@@ -37,7 +37,9 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000
 }));
 
+// Database helper functions
 const { getAllItems } = require("./db/helpers/01_items");
+const { getUsernameWithID } = require("./db/helpers/username");
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -57,9 +59,23 @@ app.use("/orders", ordersRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
+  const templateVars = {
+    user_id: req.session.user_id,
+    username: null
+  };
+
   getAllItems(db)
     .then((items) => {
-      res.render("index", { items, user_id: req.session.user_id });
+      templateVars.items = items;
+      if (req.session.user_id) {
+        getUsernameWithID(db, req.session.user_id)
+          .then((username) => {
+            templateVars.username = username;
+            res.render("index", templateVars);
+          })
+      } else {
+        res.render("index", templateVars);
+      }
     });
 });
 

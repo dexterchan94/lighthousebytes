@@ -43,12 +43,14 @@ body {
 
 .navbar-brand {
   font-size: 1.5rem;
+  font-weight: 400;
 }
 
 .nav-link {
   padding: 0 0;
   border-bottom: 2px solid transparent;
   font-size: 1.2rem;
+  display: inline-block;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
