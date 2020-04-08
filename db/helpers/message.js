@@ -11,6 +11,32 @@ const sendMessage = (db, id, content) => {
   `;
   db.query(queryString, [id])
     .then((data) => {
+      console.log(content, data.rows[0].phone, process.env.TWILIO_PHONE);
+
+      client.messages
+        .create({
+           body: content,
+           from: process.env.TWILIO_PHONE,
+           to: data.rows[0].phone
+         })
+        .then(message => console.log(message.sid));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const sendMessageToAdmin = (db, content) => {
+  const queryString = `
+  SELECT phone
+  FROM users
+  WHERE id = $1;
+  `;
+  const adminId = 1;
+  db.query(queryString, [adminId])
+    .then((data) => {
+      console.log(content, data.rows[0].phone, process.env.TWILIO_PHONE);
+
       client.messages
         .create({
            body: content,
@@ -25,5 +51,5 @@ const sendMessage = (db, id, content) => {
 };
 
 module.exports = {
-  sendMessage
+  sendMessage, sendMessageToAdmin
 };
