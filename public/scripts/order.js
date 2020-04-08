@@ -136,7 +136,6 @@ $(() => {
 
     $.post('/order', $data)
       .done((orderID) => {
-        console.log('orderid: ', orderID);
         // open modal with no escape by clicking outside
         $('#successModal').modal({
           backdrop: 'static',

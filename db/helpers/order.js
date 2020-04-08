@@ -1,4 +1,4 @@
-const getAllItems = (db) => {
+const getAllItems = db => {
   return db.query(`SELECT * FROM items WHERE active = true;`)
     .then(data => {
       return data.rows;
@@ -36,7 +36,6 @@ const placeOrder = (db, items, userID) => {
         paramIndex += 2;
         curItemNo++;
       }
-
       db.query(queryStringOrderItems, queryParamsOrderItems);
       return orderID;
     })
@@ -46,10 +45,7 @@ const placeOrder = (db, items, userID) => {
     .catch(err => {
       console.error(err);
     });
-
-
-
-}
+};
 
 module.exports = {
   getAllItems, placeOrder
