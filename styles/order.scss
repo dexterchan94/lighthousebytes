@@ -40,14 +40,17 @@
   padding: 4px 6px;
   border: 1px solid #cccccc;
 }
-.up_count .down_count {
+.up_count {
   margin-top: -2px;
   margin-left: -5px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
 .down_count {
+  margin-top: -2px;
   margin-right: -4px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 // cart
