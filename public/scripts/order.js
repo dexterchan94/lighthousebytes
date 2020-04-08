@@ -135,7 +135,7 @@ $(() => {
     const $data = $('#orderForm').serialize();
 
     $.post('/order', $data)
-      .done((orderID) => {
+      .done(() => {
         // open modal with no escape by clicking outside
         $('#successModal').modal({
           backdrop: 'static',
