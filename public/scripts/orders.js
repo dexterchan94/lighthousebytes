@@ -92,7 +92,7 @@ const renderOrders = (data) => {
   if (!data.user_id) {
     $("#orders-container").append(`<h1>Please login to view this page</h1>`);
   } else {
-    $("#orders-container").append(`<h1 class="mt-5">Orders</h1>`);
+    $("#orders-container").append(`<h1>Orders</h1>`);
     for (order of data.orders) {
       if (order.user_id == data.user_id || data.userType === "admin") {
         $("#orders-container").append(createOrderElement(order, data.userType));
@@ -130,13 +130,13 @@ $(document).ready(() => {
     const data = $form.data();
     const orderId = data.orderId;
     const $prepTimeInput = $form.find('.preptime');
+
     if (!$prepTimeInput.val()) {
       $(`.order-${orderId} .error-text`).slideDown();
     } else {
       $.post(`/orders/${orderId}/accept`, $(this).serialize())
         .done((res) => {
           $(`.order-${orderId} .error-text`).slideUp();
-          // console.log(`Order ${orderId} accepted! Estimated time: ${$prepTimeInput.val()} minutes`);
           $(`.order-${orderId} .accept-form`).addClass("hidden");
           $(`.order-${orderId} .complete-form`).removeClass("hidden");
           $(`.order-${orderId} .status-text`).html(`Accepted at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
@@ -185,8 +185,6 @@ $(document).ready(() => {
         console.log(err);
       });
   });
-
-
 
 
 });

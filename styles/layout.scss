@@ -1,9 +1,8 @@
 // See: https://sass-lang.com/
 $theme-color: #03a5fc;
+
 html {
   height: 100%;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
 }
 
 body {
@@ -16,28 +15,40 @@ body {
   font-weight: 300;
 }
 
+.navbar.navbar-dark {
+  background-color: $theme-color;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 400;
+
+  img {
+    height: 2.5rem;
+    border-radius: 50%;
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: 2px solid transparent;
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  border-bottom: 2px solid white;
+  color: white;
+  transition: 0.5s;
+}
+
 .jumbotron {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=1635&q=80');
   background-size: cover;
   color: white;
   height: 500px;
-
-    h1 {
-      color:#EEE;
-    }
-
-}
-
-.navbar.navbar-dark {
-  background-color: $theme-color;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 1);
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
 }
 
 .page-footer {
@@ -45,10 +56,14 @@ body {
   margin-top: auto;
   width: 100%;
   height: 200px;
-}
 
-.page-footer p {
-  color: white;
-  font-size: 1rem;
+  p {
+    color: white;
+    font-size: 1rem;
+
+    strong {
+      font-size: 1.2rem;
+    }
+  }
 }
 

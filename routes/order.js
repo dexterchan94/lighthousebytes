@@ -8,14 +8,32 @@
 const express = require('express');
 const router = express.Router();
 const { getAllItems, placeOrder } = require("../db/helpers/order.js");
+
+const { getUsernameWithID } = require("../db/helpers/username.js");
 const { sendMessage, sendMessageToAdmin } = require("../db/helpers/message.js");
 
 module.exports = (db) => {
+
   router.get("/", (req, res) => {
+    const templateVars = {
+      user_id: req.session.user_id,
+      username: null
+    };
+
     getAllItems(db)
       .then(items => {
-        res.render("menu", { items });
+        templateVars.items = items;
+        if (req.session.user_id) {
+          getUsernameWithID(db, req.session.user_id)
+            .then((username) => {
+              templateVars.username = username;
+              res.render("menu", templateVars);
+            })
+        } else {
+          res.render("menu", templateVars);
+        }
       });
+
   });
 
   router.post("/", (req, res) => {

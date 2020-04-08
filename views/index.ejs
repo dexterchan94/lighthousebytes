@@ -11,6 +11,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script src="https://kit.fontawesome.com/5cb6a9c6ec.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -29,7 +30,7 @@
 
       <% for (let i = 0; i < items.length; i++) { %>
 
-        <div class="card mb-3">
+        <div class="item-box card mb-3">
           <div class="row no-gutters">
 
             <div class="col-md-6">
@@ -42,7 +43,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <img src="<%= items[i].photo_url %>" class="card-img" alt="" style="object-fit: cover; width: 100%; height: 200px;">
+              <img src="<%= items[i].photo_url %>" class="card-img" alt="menu-item">
             </div>
           </div>
         </div>
