@@ -138,6 +138,7 @@ $(document).ready(() => {
         .done((res) => {
           $(`.order-${orderId} .error-text`).slideUp();
           $(`.order-${orderId} .accept-form`).addClass("hidden");
+          $(`.order-${orderId} .cancel-form`).addClass("hidden");
           $(`.order-${orderId} .complete-form`).removeClass("hidden");
           $(`.order-${orderId} .status-text`).html(`Accepted at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
         })
