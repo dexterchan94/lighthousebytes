@@ -35,9 +35,7 @@ module.exports = (db) => {
         }
         res.json({ orders, user_id: req.session.user_id, userType});
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   });
 
   router.post("/:id/accept", (req, res) => {
@@ -47,9 +45,7 @@ module.exports = (db) => {
         sendMessage(db, req.params.id, message);
         res.send();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   });
 
   router.post("/:id/complete", (req, res) => {
@@ -59,9 +55,7 @@ module.exports = (db) => {
         sendMessage(db, req.params.id, message);
         res.send();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   });
 
   router.post("/:id/cancel", (req, res) => {
@@ -71,10 +65,9 @@ module.exports = (db) => {
         sendMessage(db, req.params.id, message);
         res.send();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   });
+
   return router;
 };
 
