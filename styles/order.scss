@@ -16,6 +16,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 70%;
+
 }
 .card {
   flex: 1 0 26%;
@@ -23,6 +24,7 @@
   height: 40em;
   width: 30%;
   display: flex;
+  min-width: 320px;
 }
 .card-body {
   height: 50%;
@@ -159,3 +161,8 @@ img {
   flex-grow: 4;
 }
 
+img {
+  object-fit: cover;
+}
+
+// responsive design
