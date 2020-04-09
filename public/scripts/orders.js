@@ -1,4 +1,5 @@
 const createOrderElement = (order, userType) => {
+  // Bootstrap card containers, order ID, and guest name
   let markup = `
   <article class="order-${order.id} card mb-3 order-box">
     <div class="row no-gutters">
@@ -11,6 +12,7 @@ const createOrderElement = (order, userType) => {
           <ul>
   `;
 
+  // Price breakdown for the order
   for (item of order.items) {
     markup += `<li>${item.item_name} x ${item.quantity}</li>`;
   }
@@ -21,6 +23,7 @@ const createOrderElement = (order, userType) => {
           <span class="card-text total-price">Total: $${(order.total_price / 100).toFixed(2)}</span>
   `;
 
+  // Order status text
   if (order.status === 'pending') {
     let dateCreated = new Date(order.created_at);
     markup += `<span class="card-text status-text text-muted">Created at: ${dateCreated.toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}</span>`;
@@ -39,6 +42,7 @@ const createOrderElement = (order, userType) => {
     </div>
   `;
 
+  // Special request text - only appears if there is a special request
   if (order.special_request) {
     markup += `
       <p class="special-request-text my-2"><strong>Special Request: ${order.special_request}</strong></p>
@@ -50,12 +54,15 @@ const createOrderElement = (order, userType) => {
   `;
 
   if (userType === "admin") {
+      // Accept button - only appears for admin user if the order is pending
       markup += `
       <form class="accept-form hidden" method="POST" action="/orders/${order.id}/accept" data-order-id="${order.id}">
         <input type="number" class="preptime" name="preptime" placeholder="minutes to prepare">
         <button type="submit" class="btn btn-outline-primary mx-2">Accept</button>
       </form>
       `;
+
+      // Complete button - only appears for admin user if the order is accepted
       markup += `
       <form class="complete-form hidden" method="POST" action="/orders/${order.id}/complete" data-order-id="${order.id}">
         <button type="submit" class="btn btn-outline-success mx-2">Complete</button>
@@ -63,12 +70,14 @@ const createOrderElement = (order, userType) => {
       `;
   }
 
+// Cancel button - only appears if the order is pending
   markup +=`
   <form class="cancel-form hidden" method="POST" action="/orders/${order.id}/cancel" data-order-id="${order.id}">
     <button type="submit" class="btn btn-outline-danger mx-2">Cancel</button>
   </form>
   `;
 
+  // Blank form error text - only appears if user submits a blank form
   markup += `
             </div>
           <p class="error-text hidden my-2 text-danger">Enter order preparation time</p>
@@ -83,8 +92,6 @@ const createOrderElement = (order, userType) => {
 
   return markup;
 };
-
-
 
 const renderOrders = (data) => {
   $("#orders-container").empty();
@@ -113,11 +120,10 @@ const loadOrders = () => {
   .done((data) => {
     renderOrders(data);
   })
-  .fail((err) => {
-    console.log(err);
-  });
+  .fail(err => console.log(err));
 
 };
+
 
 $(document).ready(() => {
 
@@ -131,9 +137,11 @@ $(document).ready(() => {
     const orderId = data.orderId;
     const $prepTimeInput = $form.find('.preptime');
 
+    // Show error text is form input is empty
     if (!$prepTimeInput.val()) {
       $(`.order-${orderId} .error-text`).slideDown();
     } else {
+      // Update order status and display the 'complete' button
       $.post(`/orders/${orderId}/accept`, $(this).serialize())
         .done((res) => {
           $(`.order-${orderId} .error-text`).slideUp();
@@ -142,9 +150,7 @@ $(document).ready(() => {
           $(`.order-${orderId} .complete-form`).removeClass("hidden");
           $(`.order-${orderId} .status-text`).html(`Accepted at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
         })
-        .fail((err) => {
-          console.log(err);
-        });
+        .fail(err => console.log(err));
     }
 
   });
@@ -157,15 +163,13 @@ $(document).ready(() => {
     const data = $form.data();
     const orderId = data.orderId;
 
+    // Update order status and hide the 'complete' button
     $.post(`/orders/${orderId}/complete`)
-      .done((res) => {
+      .done(() => {
         $(`.order-${orderId} .complete-form`).addClass("hidden");
         $(`.order-${orderId} .status-text`).html(`Completed at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
-
       })
-      .fail((err) => {
-        console.log(err);
-      });
+      .fail(err => console.log(err));
   });
 
   $("#orders-container").on('submit', '.cancel-form', function (event) {
@@ -175,16 +179,14 @@ $(document).ready(() => {
     const data = $form.data();
     const orderId = data.orderId;
 
+    // Update order status and hide all buttons
     $.post(`/orders/${orderId}/cancel`)
-      .done((res) => {
+      .done(() => {
         $(`.order-${orderId} .accept-form`).addClass("hidden");
         $(`.order-${orderId} .cancel-form`).addClass("hidden");
         $(`.order-${orderId} .status-text`).html(`Cancelled at: ${(new Date()).toLocaleString("en-US", {year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"})}`);
-
       })
-      .fail((err) => {
-        console.log(err);
-      });
+      .fail(err => console.log(err));
   });
 
 
