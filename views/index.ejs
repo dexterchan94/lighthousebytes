@@ -21,12 +21,12 @@
   <%- include("partials/navbar") %>
 
   <header class="jumbotron d-flex flex-column align-content-center ">
-    <h1 class="display-4 my-2">Welcome to</h1>
-    <h1 class="display-4 my-2">Lighthouse Bytes!</h1>
+    <h1 class="display-4 my-2 text-center">Welcome to</h1>
+    <h1 class="display-4 my-2 text-center">Lighthouse Bytes!</h1>
   </header>
 
   <section id="menu" class="container">
-    <h1>Menu</h1>
+    <h1>Our Specialties</h1>
 
     <% for (let i = 0; i < items.length; i++) { %>
 
@@ -34,11 +34,11 @@
       <div class="row no-gutters">
         <div class="col-md-6">
           <div class="d-flex flex-column justify-content-center card-body h-100">
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="card-title"><%= items[i].name %></span>
-              <span class="card-text">$<%= items[i].price / 100 %></span>
+            <div class="d-flex align-content-center">
+              <span class="card-title text-center"><%= items[i].name %></span>
+              <!-- <span class="card-price">$<%= items[i].price / 100 %></span> -->
             </div>
-            <p class="card-text text-muted"><%= items[i].description %></p>
+            <p class="card-text text-muted text-center"><%= items[i].description %></p>
           </div>
         </div>
         <div class="col-md-6">
