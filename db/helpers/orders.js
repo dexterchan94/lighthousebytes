@@ -12,25 +12,15 @@ const getAllOrders = (db) => {
     .then(orders => {
       const promises = [];
       for (row of orders.rows) {
-        promises.push(getOrderItems(db,row.id,row));
+        promises.push(getOrderItems(db,row.id,row).catch(err => console.log(err)));
       }
       return Promise.all(promises)
-        .then((values) => {
-          return values;
-        });
-
-
+        .then(values => values);
     })
-    .catch(err => {
-      console.log(err);
-      // res
-      //   .status(500)
-      //   .json({ error: err.message });
-    });
+    .catch(err => console.log(err));
 };
 
-
-
+// Fetch all items and quantitied for a specific order
 const getOrderItems = (db, orderID, row) => {
   const queryString = `
   SELECT items.name AS item_name, order_items.quantity AS quantity, (items.price * quantity) AS item_total
@@ -43,9 +33,7 @@ const getOrderItems = (db, orderID, row) => {
       row.items = data.rows;
       return row;
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 };
 
 const acceptOrder = (db, orderID) => {
@@ -54,14 +42,9 @@ const acceptOrder = (db, orderID) => {
   WHERE id = $1
   `;
     return db.query(queryString, [orderID])
-    .then(data => {
-      return data.rows;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .then(data => data.rows)
+    .catch(err => console.log(err));
 };
-
 
 const completeOrder = (db, orderID) => {
   const queryString = `
@@ -69,12 +52,8 @@ const completeOrder = (db, orderID) => {
   WHERE id = $1
   `;
   return db.query(queryString, [orderID])
-  .then(data => {
-    return data.rows;
-  })
-  .catch(err => {
-    console.log(err);
-  });
+  .then(data => data.rows)
+  .catch(err => console.log(err));
 };
 
 const cancelOrder = (db, orderID) => {
@@ -83,12 +62,8 @@ const cancelOrder = (db, orderID) => {
   WHERE id = $1
   `;
     return db.query(queryString, [orderID])
-    .then(data => {
-      return data.rows;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .then(data => data.rows)
+    .catch(err => console.log(err));
 };
 
 module.exports = {
