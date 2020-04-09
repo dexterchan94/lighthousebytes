@@ -5,14 +5,10 @@ const getUsernameWithID = (db, id) => {
     WHERE id = $1;
   `;
   return db.query(queryString, [id])
-    .then((user) => {
-      return `${user.rows[0].first_name} ${user.rows[0].last_name}`;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}
+    .then(user => `${user.rows[0].first_name} ${user.rows[0].last_name}`)
+    .catch((err) => console.log(err));
+};
 
 module.exports = {
   getUsernameWithID
-}
+};
