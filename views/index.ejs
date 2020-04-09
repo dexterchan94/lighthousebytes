@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Lighthouse Bytes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script src="https://kit.fontawesome.com/5cb6a9c6ec.js" crossorigin="anonymous"></script>
-  </head>
+<head>
+  <title>Lighthouse Bytes</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/index.css" type="text/css" />
 
-  <body>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+  <script src="https://kit.fontawesome.com/5cb6a9c6ec.js" crossorigin="anonymous"></script>
+</head>
 
-    <%- include("partials/navbar") %>
+<body>
+  <%- include("partials/navbar") %>
 
+  <header class="jumbotron d-flex flex-column align-content-center ">
+    <h1 class="display-4 my-2">Welcome to</h1>
+    <h1 class="display-4 my-2">Lighthouse Bytes!</h1>
+  </header>
 
-    <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
-      <h1 class="display-4 my-2 text-center">Welcome to</h1>
-      <h1 class="display-4 my-2 text-center">Lighthouse Bytes!</h1>
-    </div>
+  <section id="menu" class="container">
+    <h1>Menu</h1>
 
+    <% for (let i = 0; i < items.length; i++) { %>
 
-    <div id="menu" class="container">
-      <h1>Menu</h1>
-
-      <% for (let i = 0; i < items.length; i++) { %>
-
-        <div class="item-box card mb-3">
-          <div class="row no-gutters">
-
-            <div class="col-md-6">
-              <div class="d-flex flex-column justify-content-center card-body h-100">
-                <div class="d-flex flex-row justify-content-between align-items-center">
-                  <span class="card-title"><%= items[i].name %></span>
-                  <span class="card-text">$<%= items[i].price / 100 %></span>
-                </div>
-                <p class="card-text text-muted"><%= items[i].description %></p>
-              </div>
+    <article class="item-box card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-6">
+          <div class="d-flex flex-column justify-content-center card-body h-100">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="card-title"><%= items[i].name %></span>
+              <span class="card-text">$<%= items[i].price / 100 %></span>
             </div>
-            <div class="col-md-6">
-              <img src="<%= items[i].photo_url %>" class="card-img" alt="menu-item">
-            </div>
+            <p class="card-text text-muted"><%= items[i].description %></p>
           </div>
         </div>
+        <div class="col-md-6">
+          <img src="<%= items[i].photo_url %>" class="card-img" alt="menu-item">
+        </div>
+      </div>
+    </article>
 
-      <% } %>
+    <% } %>
 
-    </div>
-
+  </section>
 
   <%- include("partials/footer") %>
