@@ -17,7 +17,7 @@ module.exports = (db) => {
     }
     if (req.session.user_id) {
       getUsernameWithID(db, req.session.user_id)
-        .then((username) => {
+        .then(username => {
           templateVars.username = username;
           res.render("orders", templateVars);
         })
@@ -28,7 +28,7 @@ module.exports = (db) => {
 
   router.get("/data", (req, res) => {
     getAllOrders(db)
-      .then((orders) => {
+      .then(orders => {
         let userType;
         if (req.session.user_id === "1" || req.session.user_id === "2") {
           userType = "admin";
