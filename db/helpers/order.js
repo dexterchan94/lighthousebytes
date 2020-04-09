@@ -40,9 +40,6 @@ const placeOrder = (db, items, userID) => {
       db.query(queryStringOrderItems, queryParamsOrderItems);
       return orderID;
     })
-    .then(orderID => {
-      return orderID;
-    })
     .catch(err => {
       console.error(err);
     });
